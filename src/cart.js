@@ -29,7 +29,28 @@ function addToCart(cart, product, quantity) {
 };
 
 
-function changeQuantity() { return notImplemented(); }
+function changeQuantity(cart, productId, quantity) {
+  const product = cart.find((item) => item.id === productId);
+
+  if (!product) {
+    return cart;
+  }
+
+  if (quantity <= 0) {
+    throw new RangeError('Quantity must be greater than zero');
+  }
+
+  if (quantity > product.stock) {
+    throw new RangeError('Quantity exceeds available stock');
+  }
+
+  return cart.map((item) =>
+    item.id === productId
+      ? { ...item, quantity }
+      : item
+  );
+};
+
 function removeFromCart() { return notImplemented(); }
 function calculateCartSubtotal() { return notImplemented(); }
 function calculateOrderTotal() { return notImplemented(); }
