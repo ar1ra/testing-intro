@@ -51,8 +51,14 @@ function changeQuantity(cart, productId, quantity) {
   );
 };
 
-function removeFromCart() { return notImplemented(); }
-function calculateCartSubtotal() { return notImplemented(); }
+function removeFromCart(cart, productId) {
+  return cart.filter((item) => item.id !== productId);
+};
+
+function calculateCartSubtotal(cart) {
+  return cart.reduce((prev, cur) => prev + cur.price * cur.quantity, 0);
+};
+
 function calculateOrderTotal() { return notImplemented(); }
 
 const cartApi = { addToCart, changeQuantity, removeFromCart, calculateCartSubtotal, calculateOrderTotal };
